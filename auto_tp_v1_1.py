@@ -193,12 +193,12 @@ class TechProfileApp:
     def generate_tech_profile(self):
         ppt_app = comtypes.client.CreateObject("PowerPoint.Application")
 
-        if isPresentationOpen(ppt_app, "template.pptx"):
+        if isPresentationOpen(ppt_app, "template_v1.pptx"):
             messagebox.showinfo("Error", "The template this program uses is currently open. Please close the template and try again.")
             return
 
         # Load tech profile template
-        tp = Presentation("template.pptx")
+        tp = Presentation("template_v1.pptx")
         
 
         # ------------------ STEP 1 ------------------------
