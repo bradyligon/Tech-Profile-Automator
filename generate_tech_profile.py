@@ -27,8 +27,8 @@ def generate_tech_profile():
 
 
     numSites = 1
-    singleImageNames = ["Switch1", "Switch2", "ManagementSwitch"]
-    doubleImageNames = []
+    singleImageNames = ["Switch1", "Switch2", "ManagementSwitch", "Server1", "Server2", "Server3", "Server4", "Server5", "Server6", "Server7", "Server8", "Server9", "Server10", "Server11", "Server12", "Storage", "Backup", "Virtualization"]
+    doubleImageNames = ["Switch1_1", "Switch2_1", "Switch1_2", "Switch2_2", "ManagementSwitch1", "ManagementSwitch2", "Server1_1", "Server2_1", "Server3_1", "Server4_1", "Server5_1", "Server6_1", "Server1_2", "Server2_2", "Server3_2", "Server4_2", "Server5_2", "Server6_2", "Storage1", "Storage2", "Backup1", "Backup2", "Virtualization"]
 
     # Load images' left, top, width, and height data from the slide based on if this is a single or double site setup
     singleImageData = {}
