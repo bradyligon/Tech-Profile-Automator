@@ -12,6 +12,10 @@ from pptx.dml.color import RGBColor
 # Custom Libraries
 from component_data import *
 
+
+
+# -------------------- AUXILLARY FUNCTIONS ---------------------------
+
 def update_paragraph_run(paragraph, run_text):
     # Function that updates paragraph with new text
     paragraph.clear()
@@ -20,6 +24,13 @@ def update_paragraph_run(paragraph, run_text):
     run.text = run_text
 
     return run
+
+def format_run(run, isBold):
+    font = run.font
+    font.name = "Arial"
+    font.size = Pt(8)
+    font.bold = isBold
+    font.color.rgb = RGBColor(0, 0, 0)
 
 def load_image_data(slide, imageNames):
     # Function that saves the size and position data of image in a dictionary, given a slide from a PowerPoint and a list of names to identify specific images to save
@@ -35,6 +46,10 @@ def load_image_data(slide, imageNames):
             }
 
     return imageData
+
+
+
+# -------------------- MAIN FUNCTION -------------------------
 
 def generate_tech_profile():
 
@@ -80,11 +95,7 @@ def generate_tech_profile():
             paragraphs = shape.text_frame.paragraphs
 
             runToRSwitchModel = update_paragraph_run(paragraphs[1], switch_S4128F.switchModel)
-            font = runToRSwitchModel.font
-            font.name = "Arial"
-            font.size = Pt(8)
-            font.bold = True
-            font.color.rgb = RGBColor(0, 0, 0)
+            format_run(runToRSwitchModel, True)
             # print(paragraphs)
 
     # Save tech profile
