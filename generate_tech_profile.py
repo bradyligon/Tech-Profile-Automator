@@ -16,21 +16,20 @@ from component_data import *
 
 # -------------------- AUXILLARY FUNCTIONS ---------------------------
 
-def update_paragraph_run(paragraph, run_text):
+def update_paragraph(paragraph, run_text, isBold):
     # Function that updates paragraph with new text
     paragraph.clear()
 
     run = paragraph.add_run()
     run.text = run_text
 
-    return run
-
-def format_run(run, isBold):
     font = run.font
     font.name = "Arial"
     font.size = Pt(8)
     font.bold = isBold
     font.color.rgb = RGBColor(0, 0, 0)
+
+    return run
 
 def load_image_data(slide, imageNames):
     # Function that saves the size and position data of image in a dictionary, given a slide from a PowerPoint and a list of names to identify specific images to save
@@ -91,11 +90,25 @@ def generate_tech_profile():
 
     for shape in slide.shapes:
         if shape.name == "Network_Info":
-            # Edit text field
+            # Edit text field for networking
+            # In context, the one switch component will become the user input to the function, networkInput
             paragraphs = shape.text_frame.paragraphs
 
-            runToRSwitchModel = update_paragraph_run(paragraphs[1], switch_S4128F.switchModel)
-            format_run(runToRSwitchModel, True)
+            # ToR Model Description
+            switchModelTxt = "(" + str(switch_S4128F.qty) + ") " + switch_S4128F.switchModel
+            update_paragraph(paragraphs[1], switchModelTxt, True)
+
+            # Speed Description
+            switchSpeedTxt = switch_S4128F.speed
+            update_paragraph(paragraphs[2], switchSpeedTxt, False)
+
+            # Num Ports Description
+            switchPortsTxt = str(switch_S4128F.numPorts) + " Ports"
+            update_paragraph(paragraphs[3], switchPortsTxt, False)
+
+            # Management Switch Description
+            
+
             # print(paragraphs)
 
     # Save tech profile
