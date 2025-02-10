@@ -1,10 +1,25 @@
+# IO Libraries
 import comtypes.client
 import os
 import io
+
+# PowerPoint Libraries
 from pptx import Presentation
 import pptx.shapes
-from pptx.util import Inches
-import component_data
+from pptx.util import Pt, Inches
+from pptx.dml.color import RGBColor
+
+# Custom Libraries
+from component_data import *
+
+def update_paragraph_run(paragraph, run_text):
+    # Function that updates paragraph with new text
+    paragraph.clear()
+
+    run = paragraph.add_run()
+    run.text = run_text
+
+    return run
 
 def load_image_data(slide, imageNames):
     # Function that saves the size and position data of image in a dictionary, given a slide from a PowerPoint and a list of names to identify specific images to save
@@ -59,11 +74,32 @@ def generate_tech_profile():
 
     # Edit text fields
 
-    # for 
+    for shape in slide.shapes:
+        if shape.name == "Network_Info":
+            # Edit text field
+            paragraphs = shape.text_frame.paragraphs
 
-    # tp.save("test.pptx")
+            runToRSwitchModel = update_paragraph_run(paragraphs[1], switch_S4128F.switchModel)
+            font = runToRSwitchModel.font
+            font.name = "Arial"
+            font.size = Pt(8)
+            font.bold = True
+            font.color.rgb = RGBColor(0, 0, 0)
+            # print(paragraphs)
 
-    # return
+    # Save tech profile
+    fileName = "test"
+
+    home_directory = os.path.expanduser("~")
+
+    target_folder = os.path.join(home_directory, "Downloads")
+
+    new_prs_name = fileName + ".pptx"
+    save_path = os.path.join(target_folder, new_prs_name)
+
+    tp.save(save_path)
+
+    return
 
 if __name__ == "__main__":
     generate_tech_profile()

@@ -7,7 +7,7 @@ from dataclasses import dataclass
 # Class definitions
 @dataclass
 class Networking:
-    swithModel: str
+    switchModel: str
     qty: int
     speed: str
     numPorts: int
