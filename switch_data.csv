@@ -1,0 +1,12 @@
+﻿Switch Model,Speed,Num Ports
+PowerSwitch S4128F,10 GbE SFP+,28 Ports
+PowerSwitch S4128T,10 GbE BaseT,28 Ports
+PowerSwitch S5224F,25 GbE SFP28,24 Ports
+PowerSwitch S5232F,25 GbE SFP28,32 Ports
+PowerSwitch S4148T,10 GbE BaseT,48 Ports
+PowerSwitch S4148F,10 GbE SFP+,48 Ports
+PowerSwitch S5248F,25 GbE SFP28,48 Ports
+PowerSwitch S5296F,25 GbE SFP28,96 Ports
+HPE Aruba Switch,*Insert*,*Insert*
+Catalyst C9200-24T,10 GbE BaseT,24 Ports
+Catalyst C9200-48T,10 GbE BaseT,48 Ports
