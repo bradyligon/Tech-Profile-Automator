@@ -22,10 +22,10 @@ class Compute:
 #     storageModel: str
 #     capacity: int
 
-# @dataclass
-# class Backup:
-#     backupModel: str
-#     backupDesc: str
+@dataclass
+class Application:
+    model: str
+    desc: str
 
 # @dataclass
 # class DR:

@@ -8,6 +8,7 @@ from pptx import Presentation
 import pptx.shapes
 from pptx.util import Pt, Inches
 from pptx.dml.color import RGBColor
+from pptx.enum.text import MSO_ANCHOR
 
 # Custom Libraries
 from component_data import *
@@ -58,6 +59,9 @@ def generate_tech_profile():
     managementInput = Component("PowerSwitch S4128T", 1)
     computeInput = []
     computeInput.append(Compute(Component("PowerEdge R660", 3), Component("Intel Gold 6526Y, 2.8 GHz, 16C/32T", 1), "512 GiB"))
+    storageInput = Component("PowerStore 1200T", 100)
+    backupInput = Application("Veeam", "Yearly Subscription Plan, refresh every year")
+    replicationInput = Application("vSphere Replication", "Async Replication, DR site in Dallas")
 
     # Load template presentation
     tp = Presentation("template_v2.pptx")
@@ -126,32 +130,70 @@ def generate_tech_profile():
 
         if shape.name == "Compute_Info":
             # Edit text field for compute
-            paragraphs = shape.text_frame.paragraphs
+            shape.text_frame.clear()
+            paragraphs = []
 
             row = 0
             for compute in computeInput:
                 # Server Model Description
-                serverTxt = "(" + str(compute.server.qty) + ") " + compute.server.model  
+                serverTxt = "(" + str(compute.server.qty) + ") " + compute.server.model
+                paragraphs.append(shape.text_frame.add_paragraph())
                 update_paragraph(paragraphs[row], serverTxt, True)
                 row = row + 1
 
                 # CPU Description
                 cpuTxt = "(" + str(compute.cpu.qty) + ") " + compute.cpu.model
+                paragraphs.append(shape.text_frame.add_paragraph())
                 update_paragraph(paragraphs[row], cpuTxt, False)
                 row = row + 1
 
                 # Memory Description
                 memoryTxt = compute.memory
+                paragraphs.append(shape.text_frame.add_paragraph())
                 update_paragraph(paragraphs[row], memoryTxt, False)
                 row = row + 1
-
-            for i in range(row, 9):
-                paragraphs[i].clear()
-
-        
             
+            if len(shape.text_frame.paragraphs) > 0:
+                first_paragraph = shape.text_frame.paragraphs[0]
+                shape.text_frame._element.remove(first_paragraph._element)
 
+            shape.text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
 
+        if shape.name == "Storage_Info":
+            # Edit text field for storage
+            paragraphs = shape.text_frame.paragraphs
+
+            # Storage Model Description
+            storageTxt = storageInput.model
+            update_paragraph(paragraphs[0], storageTxt, True)
+
+            # Capacity Description
+            capacityTxt = str(storageInput.qty) + " TiB"
+            update_paragraph(paragraphs[1], capacityTxt, False)
+
+        if shape.name == "Backup_Info":
+            # Edit text field for backup
+            paragraphs = shape.text_frame.paragraphs
+
+            # Backup Model Description
+            backupTxt = backupInput.model
+            update_paragraph(paragraphs[0], backupTxt, True)
+
+            # Backup Description
+            backupDesc = backupInput.desc
+            update_paragraph(paragraphs[1], backupDesc, False)
+
+        if shape.name == "DR_Info":
+             # Edit text field for Replication
+            paragraphs = shape.text_frame.paragraphs
+
+            # Replication Model Description
+            replicationTxt = replicationInput.model
+            update_paragraph(paragraphs[0], replicationTxt, True)
+
+            # Replication Description
+            replicationDesc = replicationInput.desc
+            update_paragraph(paragraphs[1], replicationDesc, False)
 
     # --------------------- COPY AND PAST IMAGES ----------------------
     # ----------------------------------------------------------------- 
